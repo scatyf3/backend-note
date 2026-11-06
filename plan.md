@@ -15,6 +15,12 @@
 3. `npm test && npm run docs:build`，过了就把清单里对应项改成 `[x]`，commit + push。
 4. 不确定的数字、版本、API 先查证再写，参考里给链接。
 
+约定（第一轮踩出来的）：
+- `ignoreDeadLinks: false`：正文里链接**还没写的笔记**会让构建失败，改链 `/stack/<id>`（格子页永远存在）。frontmatter `related` 不校验，可以先写未来的路径。
+- 闪卡 `ref` 的 `#锚点` 要用 VitePress 生成的 id：先 `npm run docs:build`，再在 dist 里 grep `<h2 id=`（scratchpad 里有 `anchors.sh`），中文全角标点会变成 `-`。
+- 闪卡文件 `src/data/cards/<slug>.ts` 导出 `cards`，在 `src/data/flashcards.ts` 里 `import { cards as xxx }` 再 `...xxx` 展开。
+- 引用 DocPilot / LLMGateway 代码前先打开源文件核对原文。
+
 ## 写作口径
 
 - 读者：准备北美后端 / AI infra 面试的人（就是用户本人）。正文中文，术语英文。
@@ -54,8 +60,8 @@ DocPilot（`../DocPilot`，RAG + Agent 应用）和 LLMGateway（`../LLMGateway`
 ### 第 0 层 地基
 - [x] f-net → `backend/network-tcp-http-tls` 网络：TCP / HTTP / TLS
 - [x] f-os-io → `backend/os-io-models` OS 与 IO 模型
-- [ ] f-concurrency → `backend/concurrency-models` 并发模型
-- [ ] llm-token → `ai/tokens-context-window` Token 与上下文窗口
+- [x] f-concurrency → `backend/concurrency-models` 并发模型
+- [x] llm-token → `ai/tokens-context-window` Token 与上下文窗口
 - [ ] llm-sampling → `ai/sampling-nondeterminism` 采样、非确定性与幻觉
 - [ ] llm-latency-cost → `ai/llm-latency-cost` 延迟与成本模型
 
