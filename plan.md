@@ -79,8 +79,8 @@ DocPilot（`../DocPilot`，RAG + Agent 应用）和 LLMGateway（`../LLMGateway`
 - [x] st-cache → `backend/caching` 缓存
 - [x] st-nosql → `backend/nosql-fulltext` NoSQL 与全文检索
 - [x] st-vector → `ai/embedding-vector-index` Embedding 与向量索引
-- [ ] ctx-memory → `ai/conversation-memory` 会话与记忆
-- [ ] gw-cache → `ai/prompt-semantic-cache` Prompt caching 与语义缓存
+- [x] ctx-memory → `ai/conversation-memory` 会话与记忆
+- [x] gw-cache → `ai/prompt-semantic-cache` Prompt caching 与语义缓存
 
 ### 第 3 层 上下文工程
 - [ ] ctx-prompt → `ai/prompt-versioning` Prompt 设计与版本管理
