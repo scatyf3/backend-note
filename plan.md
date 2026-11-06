@@ -116,10 +116,10 @@ DocPilot（`../DocPilot`，RAG + Agent 应用）和 LLMGateway（`../LLMGateway`
 - [x] sec-privacy → `backend/privacy-pii` 数据隐私与 PII
 - [x] sec-injection → `ai/prompt-injection` Prompt injection
 - [x] sec-sandbox → `ai/agent-sandbox` Agent 权限与沙箱
-- [ ] sec-guardrails → `ai/guardrails` Guardrails
+- [x] sec-guardrails → `ai/guardrails` Guardrails
 
 ### 第 8 层 架构与权衡
-- [ ] arch-boundaries → `backend/service-boundaries` 服务边界
+- [x] arch-boundaries → `backend/service-boundaries` 服务边界
 - [ ] arch-capacity → `backend/capacity-estimation` 容量估算与高并发设计
 - [ ] arch-cost → `backend/cost` 成本
 - [ ] ai-interaction → `ai/interaction-patterns` 同步 / 异步交互模式
