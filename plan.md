@@ -108,8 +108,8 @@ DocPilot（`../DocPilot`，RAG + Agent 应用）和 LLMGateway（`../LLMGateway`
 - [x] ops-observability → `backend/observability` 可观测性
 - [x] ops-release → `backend/progressive-delivery` 灰度与 feature flag
 - [x] ev-offline → `ai/offline-evals` 离线 eval 与 LLM-as-judge
-- [ ] ev-tracing → `ai/llm-tracing` LLM tracing
-- [ ] ev-online → `ai/online-evals-ab` 线上回归与 A/B
+- [x] ev-tracing → `ai/llm-tracing` LLM tracing
+- [x] ev-online → `ai/online-evals-ab` 线上回归与 A/B
 
 ### 第 7 层 安全
 - [ ] sec-owasp → `backend/owasp` 应用安全：OWASP
