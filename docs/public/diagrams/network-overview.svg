@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 560" width="1000" height="560" role="img" aria-label="网络延迟概览图">
+<title>网络延迟概览图</title>
+<style>
+ .bg{fill:#fff} .ink{fill:#1a1a1a} .sub{fill:#666} .faint{fill:#999}
+ .rtt{fill:#4C72B0} .rttl{fill:#4C72B0;fill-opacity:.4} .rtttx{fill:#3a5a94}
+ .q{fill:url(#hatch)} .qbd{fill:none;stroke:#DD8452;stroke-width:1.5} .qtx{fill:#c0622b}
+ .base{fill:#f2f2f2;stroke:#555;stroke-width:1.2} .on{fill:#fff}
+ .panel{fill:none;stroke:#d0d0d0;stroke-width:1} .rule{stroke:#bbb;stroke-width:1}
+ .layer{fill:#f5f5f5;stroke:#c8c8c8} .chipB{fill:#4C72B0;fill-opacity:.12;stroke:#4C72B0;stroke-width:1.2}
+ .chipO{fill:#DD8452;fill-opacity:.14;stroke:#DD8452;stroke-width:1.2} .chipG{fill:#f5f5f5;stroke:#c8c8c8}
+ .hl{stroke:#DD8452} .arrB{stroke:#4C72B0} .ahB{fill:#4C72B0} .ahK{fill:#999}
+ @media (prefers-color-scheme: dark){
+  .bg{fill:#1b1b1f} .ink{fill:#e6e6e0} .sub{fill:#a8a8a8} .faint{fill:#7a7a7a}
+  .rtt{fill:#6f95d6} .rttl{fill:#6f95d6;fill-opacity:.4} .rtttx{fill:#9bb8ea}
+  .qbd{stroke:#ec9a6c} .qtx{fill:#f0a679} .hl{stroke:#ec9a6c}
+  .base{fill:#2a2b30;stroke:#a0a0a0} .panel{stroke:#3a3b40} .rule{stroke:#55565c}
+  .layer{fill:#25262b;stroke:#3f4046} .chipB{fill:#6f95d6;fill-opacity:.18;stroke:#6f95d6}
+  .chipO{fill:#ec9a6c;fill-opacity:.18;stroke:#ec9a6c} .chipG{fill:#25262b;stroke:#3f4046}
+  .arrB{stroke:#6f95d6} .ahB{fill:#6f95d6} .ahK{fill:#666}
+ }
+ text{font-family:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Microsoft YaHei",sans-serif}
+</style>
+<defs>
+ <pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+  <rect width="7" height="7" class="bg"/><line x1="0" y1="0" x2="0" y2="7" class="hl" stroke-width="3"/>
+ </pattern>
+ <marker id="mB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="ahB" d="M0,0L10,5L0,10z"/></marker>
+ <marker id="mK" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="ahK" d="M0,0L10,5L0,10z"/></marker>
+</defs>
+<rect class="bg" x="0" y="0" width="1000" height="560" rx="10" />
+<text x="500.0" y="44" font-size="22" text-anchor="middle" class="ink"><tspan>请求耗时  ≈  </tspan><tspan class="rtttx" font-weight="700">要等几个 RTT</tspan><tspan>  ×  RTT  +  </tspan><tspan class="qtx" font-weight="700">排队等待</tspan></text>
+<text class="sub" x="500.0" y="70" font-size="13" text-anchor="middle" font-weight="400" >RTT 受光速限制降不下来，能优化的只有两项：少等几个 RTT，少排队</text>
+<rect class="panel" x="24" y="92" width="600" height="316" rx="8" />
+<text class="ink" x="40" y="118" font-size="15" text-anchor="start" font-weight="700" >(a) 一个请求的时间花在哪</text>
+<text class="ink" x="40" y="181" font-size="13" text-anchor="start" font-weight="700" >新连接</text>
+<text class="sub" x="40" y="196" font-size="11.5" text-anchor="start" font-weight="400" >冷启动</text>
+<rect class="rtt" x="136" y="166" width="84" height="34" rx="3" />
+<text class="on" x="178.0" y="181" font-size="12" text-anchor="middle" font-weight="600" >TCP 握手</text>
+<text class="on" x="178.0" y="195" font-size="11" text-anchor="middle" font-weight="400" >1 RTT</text>
+<rect class="rtt" x="220" y="166" width="84" height="34" rx="3" />
+<text class="on" x="262.0" y="181" font-size="12" text-anchor="middle" font-weight="600" >TLS 1.3</text>
+<text class="on" x="262.0" y="195" font-size="11" text-anchor="middle" font-weight="400" >1 RTT</text>
+<rect class="q" x="304" y="166" width="34" height="34" rx="3" />
+<rect class="qbd" x="304" y="166" width="34" height="34" rx="3" />
+<text class="qtx" x="321.0" y="215" font-size="11.5" text-anchor="middle" font-weight="600" >accept 队列</text>
+<rect class="base" x="338" y="166" width="84" height="34" rx="3" />
+<text class="ink" x="380.0" y="181" font-size="12" text-anchor="middle" font-weight="600" >请求 + 响应</text>
+<text class="ink" x="380.0" y="195" font-size="11" text-anchor="middle" font-weight="400" >1 RTT</text>
+<rect class="rttl" x="422" y="166" width="121" height="34" rx="3" />
+<text class="ink" x="482.5" y="181" font-size="12" text-anchor="middle" font-weight="600" >慢启动</text>
+<text class="ink" x="482.5" y="195" font-size="11" text-anchor="middle" font-weight="400" >大响应 +n RTT</text>
+<text class="ink" x="40" y="303" font-size="13" text-anchor="start" font-weight="700" >复用连接</text>
+<text class="sub" x="40" y="318" font-size="11.5" text-anchor="start" font-weight="400" >热连接</text>
+<rect class="q" x="136" y="288" width="62" height="34" rx="3" />
+<rect class="qbd" x="136" y="288" width="62" height="34" rx="3" />
+<text class="qtx" x="167.0" y="337" font-size="11.5" text-anchor="middle" font-weight="600" >队头阻塞</text>
+<rect class="q" x="198" y="288" width="30" height="34" rx="3" />
+<rect class="qbd" x="198" y="288" width="30" height="34" rx="3" />
+<text class="qtx" x="219" y="337" font-size="11.5" text-anchor="start" font-weight="600" >Nagle</text>
+<rect class="base" x="228" y="288" width="84" height="34" rx="3" />
+<text class="ink" x="270.0" y="303" font-size="12" text-anchor="middle" font-weight="600" >请求 + 响应</text>
+<text class="ink" x="270.0" y="317" font-size="11" text-anchor="middle" font-weight="400" >1 RTT</text>
+<path class="arrB" d="M 220 222 C 220 250, 182 248, 182 280" fill="none" stroke-width="1.6" marker-end="url(#mB)"/>
+<text class="rtttx" x="234" y="250" font-size="12.5" text-anchor="start" font-weight="600" >复用：省掉握手和慢启动的 RTT</text>
+<text class="qtx" x="326" y="302" font-size="12.5" text-anchor="start" font-weight="600" >代价：同一连接上的请求互相等</text>
+<text class="qtx" x="326" y="319" font-size="12.5" text-anchor="start" font-weight="600" >HTTP/2、HTTP/3 逐步消掉</text>
+<line class="rule" x1="136" y1="378" x2="600" y2="378" marker-end="url(#mK)"/>
+<line class="rule" x1="136" y1="374" x2="136" y2="382"/>
+<line class="rule" x1="220" y1="374" x2="220" y2="382"/>
+<line class="rule" x1="304" y1="374" x2="304" y2="382"/>
+<line class="rule" x1="388" y1="374" x2="388" y2="382"/>
+<line class="rule" x1="472" y1="374" x2="472" y2="382"/>
+<line class="rule" x1="556" y1="374" x2="556" y2="382"/>
+<text class="faint" x="598" y="396" font-size="11" text-anchor="end" font-weight="400" >时间 →</text>
+<rect class="rtt" x="274" y="107" width="16" height="12" rx="2" />
+<text class="sub" x="296" y="118" font-size="11.5" text-anchor="start" font-weight="400" >要等的 RTT（能省）</text>
+<rect x="412" y="107" width="16" height="12" rx="2" class="q"/><rect x="412" y="107" width="16" height="12" rx="2" class="qbd"/>
+<text class="sub" x="434" y="118" font-size="11.5" text-anchor="start" font-weight="400" >排队</text>
+<rect class="base" x="474" y="107" width="16" height="12" rx="2" />
+<text class="sub" x="496" y="118" font-size="11.5" text-anchor="start" font-weight="400" >绕不开的 1 RTT</text>
+<rect class="panel" x="640" y="92" width="336" height="316" rx="8" />
+<text class="ink" x="656" y="118" font-size="15" text-anchor="start" font-weight="700" >(b) 各机制在哪一层</text>
+<rect class="layer" x="656" y="138" width="304" height="40" rx="6" />
+<text class="ink" x="684.0" y="163.0" font-size="13.5" text-anchor="middle" font-weight="700" >HTTP</text>
+<rect class="chipO" x="712" y="146" width="238" height="24" rx="12" />
+<text class="qtx" x="831.0" y="162.5" font-size="12" text-anchor="middle" font-weight="600" >1.1 → 2 → 3：消队头阻塞</text>
+<rect class="layer" x="656" y="188" width="304" height="40" rx="6" />
+<text class="ink" x="684.0" y="213.0" font-size="13.5" text-anchor="middle" font-weight="700" >TLS</text>
+<rect class="chipB" x="712" y="196" width="238" height="24" rx="12" />
+<text class="rtttx" x="831.0" y="212.5" font-size="12" text-anchor="middle" font-weight="600" >TLS 1.3：握手 1 RTT</text>
+<rect class="layer" x="656" y="238" width="304" height="72" rx="6" />
+<text class="ink" x="684.0" y="279.0" font-size="13.5" text-anchor="middle" font-weight="700" >TCP</text>
+<rect class="chipB" x="712.0" y="246" width="116.0" height="24" rx="12" />
+<text class="rtttx" x="770.0" y="262.5" font-size="11" text-anchor="middle" font-weight="600" >三次握手</text>
+<rect class="chipB" x="834.0" y="246" width="116.0" height="24" rx="12" />
+<text class="rtttx" x="892.0" y="262.5" font-size="11" text-anchor="middle" font-weight="600" >拥塞控制 · 慢启动</text>
+<rect class="chipO" x="712.0" y="278" width="116.0" height="24" rx="12" />
+<text class="qtx" x="770.0" y="294.5" font-size="11" text-anchor="middle" font-weight="600" >Nagle / delayed ACK</text>
+<rect class="chipO" x="834.0" y="278" width="116.0" height="24" rx="12" />
+<text class="qtx" x="892.0" y="294.5" font-size="11" text-anchor="middle" font-weight="600" >backlog 队列</text>
+<text class="sub" x="656" y="336" font-size="11.5" text-anchor="start" font-weight="400" >HTTP/3 用 QUIC（跑在 UDP 上）替掉 TCP + TLS：</text>
+<text class="sub" x="656" y="353" font-size="11.5" text-anchor="start" font-weight="400" >握手和 TLS 合成 1 RTT，拥塞控制也在 QUIC 里做。</text>
+<rect class="panel" x="24" y="424" width="952" height="112" rx="8" />
+<text class="ink" x="40" y="450" font-size="15" text-anchor="start" font-weight="700" >(c) 连接活得久之后：状态由谁维护、出了问题怎么查</text>
+<rect class="chipG" x="40.0" y="466" width="298.6666666666667" height="54" rx="8" />
+<text class="ink" x="52.0" y="487" font-size="13" text-anchor="start" font-weight="700" >TIME_WAIT / CLOSE_WAIT</text>
+<text class="sub" x="52.0" y="508" font-size="11" text-anchor="start" font-weight="400" >主动关闭方攒 TIME_WAIT；漏了 close() 攒 CLOSE_WAIT</text>
+<rect class="chipG" x="350.6666666666667" y="466" width="298.6666666666667" height="54" rx="8" />
+<text class="ink" x="362.6666666666667" y="487" font-size="13" text-anchor="start" font-weight="700" >L4 vs L7 负载均衡</text>
+<text class="sub" x="362.6666666666667" y="508" font-size="11" text-anchor="start" font-weight="400" >长连接会粘在一个后端上，gRPC 要按请求分发</text>
+<rect class="chipG" x="661.3333333333334" y="466" width="298.6666666666667" height="54" rx="8" />
+<text class="ink" x="673.3333333333334" y="487" font-size="13" text-anchor="start" font-weight="700" >idle timeout 与代理缓冲</text>
+<text class="sub" x="673.3333333333334" y="508" font-size="11" text-anchor="start" font-weight="400" >LLM 流式响应：要发心跳，关掉 nginx 缓冲</text>
+</svg>

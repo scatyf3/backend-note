@@ -10,6 +10,51 @@ stack: [f-os-io]
 
 # {{ $frontmatter.title }}
 
+## motivation/high level idea
+
+这里的问题是我们有很多链接（等待），但这些链接只有在很少的时候在io。最naive的做法是
+```python
+# ① naive：一个连接一个线程，线程大部分时间卡在 read() 上
+def handle(conn):
+    while True:
+        req = conn.read()          # 阻塞：没数据就一直等
+        conn.send(process(req))
+
+for conn in accept_all():
+    Thread(target=handle, args=(conn,)).start()   # 1 万个连接 = 1 万个线程
+```
+
+但是大部分时间都在空等，最好的做法是解耦，每个thread都把自己的read请求委托给内核对应的功能（不能委托给用户态的线程），这样，一个线程处理把a request处理完之后就能处理b，相当于overlap计算和io。
+```python
+# ② 委托：把「等数据 + 读」交给别人，读完再通知我
+#    （Proactor：IOCP / io_uring，内核就是那个「专门读的线程」）
+for conn in conns:
+    submit_read(conn, buf=alloc())   # 立即返回，buf 先押给内核
+while True:
+    conn, buf = wait_completion()    # 谁读完了就处理谁
+    conn.send(process(buf))
+    submit_read(conn, buf)           # 挂上下一次读
+
+# ③ 网络上更常见：一个线程问内核「谁有数据了」，只读那几个
+#    （Reactor：epoll / kqueue，nginx、Redis、Node.js）
+for conn in conns:
+    conn.setblocking(False)
+    epoll.register(conn, EPOLLIN)
+while True:
+    for conn in epoll.wait():        # 阻塞在这里，但一次等所有连接
+        req = conn.read()            # 数据已在内核缓冲区，读不会卡
+        conn.send(process(req))
+```
+
+当然，实际写代码时我们连 epoll / IOCP 这些系统调用都不用直接碰：「替你等」的能力内核已经提供了，**事件循环库**再把它包一层，按平台自动选后端（Linux 用 epoll，macOS 用 kqueue，Windows 用 IOCP）：
+
+- C：libuv、libevent
+- Node.js：底下就是 libuv
+- Python：asyncio（`async` / `await`）
+- Java：Netty
+- Rust：tokio
+- Go 更彻底：goroutine 里直接写看起来阻塞的 `conn.Read()`，runtime 的 netpoller 在底下用 epoll 把它变成非阻塞，连事件循环都看不见。
+
 ## 一句话结论
 
 高并发服务器的核心是==不让线程空等 IO==。一个连接配一个阻塞线程，撑不住上万个大多数时间都在空闲的连接，所以出现了**非阻塞 socket + IO 多路复用（epoll / kqueue）+ 事件循环**。这套机制是 **readiness 模型**：内核告诉你「可以读了」，读还得你自己去读。Windows 的 IOCP 和 Linux 的 io_uring 属于 **completion 模型**：你把读请求交给内核，内核读完再通知你。两种模型的差别决定了 Reactor 和 Proactor 两种架构，也是一些库在 Windows 上跑不起来的原因。
@@ -41,6 +86,8 @@ Stevens 在 UNP 里的分类，面试常问：
 | 信号驱动 IO | 内核发信号通知 | 阻塞 |
 | 异步 IO（IOCP、io_uring、POSIX AIO） | 不阻塞 | **也不阻塞**，内核拷完再通知 |
 
+![五种 IO 模型对比：横轴是时间，分「等数据就绪」和「内核拷到用户空间」两个阶段；前四种在第二阶段都阻塞，所以是同步 IO，只有异步 IO 两个阶段都不阻塞](/diagrams/io-models.svg)
+
 关键在最后一列：==前四种都是同步 IO，因为拷贝那一步还得应用线程自己做==。只有最后一种是真正的异步 IO。「阻塞 / 非阻塞」说的是调用会不会卡住，「同步 / 异步」说的是谁来完成数据拷贝，两组概念要分清。
 
 ## select → poll → epoll
@@ -51,6 +98,8 @@ Stevens 在 UNP 里的分类，面试常问：
 | 每次调用 | 把整个 fd 集合拷进内核 | 同 select | 只调用 `epoll_wait`；fd 用 `epoll_ctl` 注册一次即可 |
 | 找就绪 fd | O(n) 扫一遍 | O(n) | O(就绪数)：内核维护就绪链表，回调时把 fd 挂上去 |
 | 返回后 | 用户再扫一遍 fd_set | 再扫一遍 | 直接拿到就绪列表 |
+
+![select、poll、epoll 一次调用的开销对比：select 和 poll 每次把整组 fd 拷进内核、内核 O(n) 扫描、整组拷回、用户再 O(n) 扫描；epoll 用 epoll_ctl 注册一次，数据到达时回调把 fd 挂进就绪链表，epoll_wait 只拷回 k 个就绪 fd](/diagrams/select-poll-epoll.svg)
 
 10 万个连接里只有 100 个活跃时，select/poll 每轮要扫 10 万个，epoll 只处理 100 个。这就是 epoll 能撑起 nginx、Redis、Node.js 的原因。BSD/macOS 上的对应物是 kqueue。
 
@@ -67,6 +116,8 @@ Stevens 在 UNP 里的分类，面试常问：
 
 - **Reactor**（基于 readiness）：事件循环等「可读」事件，然后回调里自己调 `read()`。nginx、Redis、Node.js（libuv 在 Linux 上）、Python asyncio 的 `SelectorEventLoop`、Netty 都是这种。
 - **Proactor**（基于 completion）：先提交「读到这个 buffer」的请求，内核读完后，事件循环拿到「读完了」的事件。Windows IOCP、Linux io_uring、asyncio 的 `ProactorEventLoop`、Boost.Asio 都是这种。
+
+![Reactor 与 Proactor 时序对比：Reactor 收到「可读了」事件后，应用线程自己调 read，卡在拷贝上；Proactor 提交读请求时就把 buf 交给内核，内核等数据并拷进 buf，完成后事件循环把带着数据的 buf 交给 handler](/diagrams/reactor-proactor.svg)
 
 两者对上层代码的影响是：Reactor 下库可以拿到原始 fd，自己决定什么时候读；Proactor 下必须预先给出 buffer，把操作交给内核。**一个按 Reactor 写的库，在只有 Proactor 的事件循环上会跑不起来。**
 

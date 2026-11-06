@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 430" width="960" height="430" role="img" aria-label="select、poll、epoll 一次调用的开销对比">
+<title>select / poll / epoll 对比</title>
+<style>
+  .bg{fill:#ffffff} .ink{fill:#1f2328} .sub{fill:#6a737d} .panel{fill:none;stroke:#d5dae1} .div{stroke:#c9ced6}
+  .zone{fill:#f6f8fa} .fd{fill:#e9ecf1;stroke:#b8bfc8} .rdy{fill:#f6c27a;stroke:#d97706}
+  .flow{stroke:#3a6fd8} .flowh{fill:#3a6fd8} .flowt{fill:#2456b8}
+  .cb{stroke:#1a7f37} .cbh{fill:#1a7f37} .cbt{fill:#1a7f37}
+  .scan{stroke:#d97706} .scanh{fill:#d97706} .scant{fill:#b45309}
+  .bad{fill:#b45309} .good{fill:#1a7f37}
+  @media (prefers-color-scheme: dark){
+    .bg{fill:#1b1b1f} .ink{fill:#dfdfd6} .sub{fill:#98989f} .panel{stroke:#3c3f44} .div{stroke:#3c3f44}
+    .zone{fill:#222327} .fd{fill:#2c2e33;stroke:#4a4e55} .rdy{fill:#8a5a1c;stroke:#f59e0b}
+    .flow{stroke:#6b9bff} .flowh{fill:#6b9bff} .flowt{fill:#8db2ff}
+    .cb{stroke:#3fb950} .cbh{fill:#3fb950} .cbt{fill:#3fb950}
+    .scan{stroke:#f59e0b} .scanh{fill:#f59e0b} .scant{fill:#fbbf24}
+    .bad{fill:#fbbf24} .good{fill:#3fb950}
+  }
+  text{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+</style>
+<defs><marker id="f" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" orient="auto"><path class="flowh" d="M0,0 L10,5 L0,10 z"/></marker><marker id="c" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" orient="auto"><path class="cbh" d="M0,0 L10,5 L0,10 z"/></marker><marker id="s" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" orient="auto"><path class="scanh" d="M0,0 L10,5 L0,10 z"/></marker></defs>
+<rect class="bg" x="0" y="0" width="960" height="430" rx="12"/>
+<rect class="zone" x="15" y="66" width="300" height="114" rx="8"/>
+<rect class="panel" x="15" y="66" width="300" height="234" rx="8" stroke-width="1.2"/>
+<line class="div" x1="15" y1="180" x2="315" y2="180" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text class="ink mono" x="165" y="34" text-anchor="middle" font-size="18" font-weight="700">select</text>
+<text class="sub" x="165" y="54" text-anchor="middle" font-size="12">fd_set 位图，重填后整组传入</text>
+<text class="sub" x="307" y="80" text-anchor="end" font-size="11">用户空间</text>
+<text class="sub" x="307" y="290" text-anchor="end" font-size="11">内核</text>
+<rect class="fd" x="55" y="94" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="fd" x="77" y="94" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="fd" x="99" y="94" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="rdy" x="121" y="94" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="fd" x="143" y="94" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="fd" x="165" y="94" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="rdy" x="187" y="94" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="fd" x="209" y="94" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="rdy" x="231" y="94" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="fd" x="253" y="94" width="18" height="18" rx="3" stroke-width="1"/>
+<line class="scan" x1="55" y1="124" x2="271" y2="124" stroke-width="1.8" marker-end="url(#s)"/>
+<text class="scant" x="163" y="142" text-anchor="middle" font-size="11.5" font-weight="600">④ 返回后用户再扫一遍，O(n)</text>
+<rect class="fd" x="55" y="208" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="fd" x="77" y="208" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="fd" x="99" y="208" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="rdy" x="121" y="208" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="fd" x="143" y="208" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="fd" x="165" y="208" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="rdy" x="187" y="208" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="fd" x="209" y="208" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="rdy" x="231" y="208" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="fd" x="253" y="208" width="18" height="18" rx="3" stroke-width="1"/>
+<line class="scan" x1="55" y1="238" x2="271" y2="238" stroke-width="1.8" marker-end="url(#s)"/>
+<text class="scant" x="163" y="256" text-anchor="middle" font-size="11.5" font-weight="600">② 内核逐个检查每个 fd，O(n)</text>
+<line class="flow" x1="37" y1="100" x2="37" y2="212" stroke-width="1.8" marker-end="url(#f)"/>
+<line class="flow" x1="299" y1="212" x2="299" y2="100" stroke-width="1.8" marker-end="url(#f)"/>
+<text class="flowt" x="45" y="168" text-anchor="start" font-size="11.5" font-weight="600">① 整组拷进</text>
+<text class="flowt" x="291" y="168" text-anchor="end" font-size="11.5" font-weight="600">③ 整组拷回</text>
+<text class="sub" x="29" y="326" text-anchor="start" font-size="12">fd 上限</text>
+<text class="bad" x="119" y="326" text-anchor="start" font-size="12.5" font-weight="700">1024（FD_SETSIZE）</text>
+<text class="sub" x="29" y="350" text-anchor="start" font-size="12">每次调用拷贝</text>
+<text class="bad" x="119" y="350" text-anchor="start" font-size="12.5" font-weight="700">整组 n 个 fd，进一次出一次</text>
+<text class="sub" x="29" y="374" text-anchor="start" font-size="12">找就绪 fd</text>
+<text class="bad" x="119" y="374" text-anchor="start" font-size="12.5" font-weight="700">内核 O(n) + 用户 O(n)</text>
+<rect class="zone" x="330" y="66" width="300" height="114" rx="8"/>
+<rect class="panel" x="330" y="66" width="300" height="234" rx="8" stroke-width="1.2"/>
+<line class="div" x1="330" y1="180" x2="630" y2="180" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text class="ink mono" x="480" y="34" text-anchor="middle" font-size="18" font-weight="700">poll</text>
+<text class="sub" x="480" y="54" text-anchor="middle" font-size="12">pollfd 数组，只去掉了 1024 上限</text>
+<text class="sub" x="622" y="80" text-anchor="end" font-size="11">用户空间</text>
+<text class="sub" x="622" y="290" text-anchor="end" font-size="11">内核</text>
+<rect class="fd" x="370" y="94" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="fd" x="392" y="94" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="fd" x="414" y="94" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="rdy" x="436" y="94" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="fd" x="458" y="94" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="fd" x="480" y="94" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="rdy" x="502" y="94" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="fd" x="524" y="94" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="rdy" x="546" y="94" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="fd" x="568" y="94" width="18" height="18" rx="3" stroke-width="1"/>
+<text class="sub" x="592" y="108" text-anchor="start" font-size="14">…</text>
+<line class="scan" x1="370" y1="124" x2="586" y2="124" stroke-width="1.8" marker-end="url(#s)"/>
+<text class="scant" x="478" y="142" text-anchor="middle" font-size="11.5" font-weight="600">④ 返回后用户再扫一遍，O(n)</text>
+<rect class="fd" x="370" y="208" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="fd" x="392" y="208" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="fd" x="414" y="208" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="rdy" x="436" y="208" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="fd" x="458" y="208" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="fd" x="480" y="208" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="rdy" x="502" y="208" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="fd" x="524" y="208" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="rdy" x="546" y="208" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="fd" x="568" y="208" width="18" height="18" rx="3" stroke-width="1"/>
+<text class="sub" x="592" y="222" text-anchor="start" font-size="14">…</text>
+<line class="scan" x1="370" y1="238" x2="586" y2="238" stroke-width="1.8" marker-end="url(#s)"/>
+<text class="scant" x="478" y="256" text-anchor="middle" font-size="11.5" font-weight="600">② 内核逐个检查每个 fd，O(n)</text>
+<line class="flow" x1="352" y1="100" x2="352" y2="212" stroke-width="1.8" marker-end="url(#f)"/>
+<line class="flow" x1="614" y1="212" x2="614" y2="100" stroke-width="1.8" marker-end="url(#f)"/>
+<text class="flowt" x="360" y="168" text-anchor="start" font-size="11.5" font-weight="600">① 整组拷进</text>
+<text class="flowt" x="606" y="168" text-anchor="end" font-size="11.5" font-weight="600">③ 整组拷回</text>
+<text class="sub" x="344" y="326" text-anchor="start" font-size="12">fd 上限</text>
+<text class="good" x="434" y="326" text-anchor="start" font-size="12.5" font-weight="700">无</text>
+<text class="sub" x="344" y="350" text-anchor="start" font-size="12">每次调用拷贝</text>
+<text class="bad" x="434" y="350" text-anchor="start" font-size="12.5" font-weight="700">整组 n 个 pollfd，进一次出一次</text>
+<text class="sub" x="344" y="374" text-anchor="start" font-size="12">找就绪 fd</text>
+<text class="bad" x="434" y="374" text-anchor="start" font-size="12.5" font-weight="700">内核 O(n) + 用户 O(n)</text>
+<rect class="zone" x="645" y="66" width="300" height="114" rx="8"/>
+<rect class="panel" x="645" y="66" width="300" height="234" rx="8" stroke-width="1.2"/>
+<line class="div" x1="645" y1="180" x2="945" y2="180" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text class="ink mono" x="795" y="34" text-anchor="middle" font-size="18" font-weight="700">epoll</text>
+<text class="sub" x="795" y="54" text-anchor="middle" font-size="12">注册与等待分开，内核维护就绪链表</text>
+<text class="sub" x="937" y="80" text-anchor="end" font-size="11">用户空间</text>
+<text class="sub" x="937" y="290" text-anchor="end" font-size="11">内核</text>
+<text class="ink mono" x="659" y="104" text-anchor="start" font-size="12" font-weight="600">epoll_ctl(ADD)</text>
+<text class="sub" x="659" y="121" text-anchor="start" font-size="11.5">每个 fd 只注册一次</text>
+<rect class="rdy" x="845" y="94" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="rdy" x="867" y="94" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="rdy" x="889" y="94" width="18" height="18" rx="3" stroke-width="1"/>
+<text class="sub" x="878" y="130" text-anchor="middle" font-size="11.5">epoll_wait() 直接拿到</text>
+<text class="sub" x="878" y="145" text-anchor="middle" font-size="11.5">k 个就绪 fd</text>
+<rect class="rdy" x="845" y="202" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="rdy" x="867" y="202" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="rdy" x="889" y="202" width="18" height="18" rx="3" stroke-width="1"/>
+<text class="ink mono" x="837" y="215" text-anchor="end" font-size="11.5" font-weight="600">ready list</text>
+<rect class="fd" x="685" y="254" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="fd" x="707" y="254" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="fd" x="729" y="254" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="rdy" x="751" y="254" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="fd" x="773" y="254" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="fd" x="795" y="254" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="rdy" x="817" y="254" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="fd" x="839" y="254" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="rdy" x="861" y="254" width="18" height="18" rx="3" stroke-width="1"/>
+<rect class="fd" x="883" y="254" width="18" height="18" rx="3" stroke-width="1"/>
+<text class="sub" x="907" y="268" text-anchor="start" font-size="14">…</text>
+<text class="sub" x="793" y="290" text-anchor="middle" font-size="11.5">interest list（红黑树，常驻内核）</text>
+<line class="cb" x1="760" y1="253" x2="854" y2="222" stroke-width="1.5" marker-end="url(#c)"/>
+<line class="cb" x1="826" y1="253" x2="876" y2="222" stroke-width="1.5" marker-end="url(#c)"/>
+<line class="cb" x1="870" y1="253" x2="898" y2="222" stroke-width="1.5" marker-end="url(#c)"/>
+<text class="cbt" x="679" y="234" text-anchor="start" font-size="11.5" font-weight="600">② 数据到达时回调</text>
+<line class="flow" x1="667" y1="128" x2="667" y2="250" stroke-width="1.8" marker-end="url(#f)" stroke-dasharray="5 3"/>
+<text class="flowt" x="675" y="168" text-anchor="start" font-size="11.5" font-weight="600">① 只在注册时传一次</text>
+<line class="flow" x1="878" y1="200" x2="878" y2="150" stroke-width="1.8" marker-end="url(#f)"/>
+<text class="flowt" x="870" y="168" text-anchor="end" font-size="11.5" font-weight="600">③ 只拷 k 个</text>
+<text class="sub" x="659" y="326" text-anchor="start" font-size="12">fd 上限</text>
+<text class="good" x="749" y="326" text-anchor="start" font-size="12.5" font-weight="700">无（受内存 / 文件数限制）</text>
+<text class="sub" x="659" y="350" text-anchor="start" font-size="12">每次调用拷贝</text>
+<text class="good" x="749" y="350" text-anchor="start" font-size="12.5" font-weight="700">只拷回 k 个就绪 fd</text>
+<text class="sub" x="659" y="374" text-anchor="start" font-size="12">找就绪 fd</text>
+<text class="good" x="749" y="374" text-anchor="start" font-size="12.5" font-weight="700">O(k)，不随 n 增长</text>
+<rect class="fd" x="15" y="404" width="16" height="16" rx="3" stroke-width="1"/>
+<text class="ink" x="37" y="417" text-anchor="start" font-size="12">未就绪 fd</text>
+<rect class="rdy" x="115" y="404" width="16" height="16" rx="3" stroke-width="1"/>
+<text class="ink" x="137" y="417" text-anchor="start" font-size="12">就绪 fd（共 k 个）</text>
+<line class="flow" x1="260" y1="412" x2="290" y2="412" stroke-width="1.8" marker-end="url(#f)"/>
+<text class="ink" x="296" y="417" text-anchor="start" font-size="12">用户 ↔ 内核拷贝</text>
+<line class="scan" x1="410" y1="412" x2="440" y2="412" stroke-width="1.8" marker-end="url(#s)"/>
+<text class="ink" x="446" y="417" text-anchor="start" font-size="12">线性扫描</text>
+<line class="cb" x1="520" y1="412" x2="550" y2="412" stroke-width="1.8" marker-end="url(#c)"/>
+<text class="ink" x="556" y="417" text-anchor="start" font-size="12">就绪回调</text>
+<text class="sub" x="945" y="417" text-anchor="end" font-size="12">n = 监听的 fd 总数，k = 就绪数，通常 k ≪ n</text>
+</svg>

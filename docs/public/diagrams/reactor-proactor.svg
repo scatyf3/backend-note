@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" role="img" aria-label="Reactor 与 Proactor 时序对比">
+<title>Reactor 与 Proactor</title>
+<style>
+  .bg{fill:#ffffff} .ink{fill:#1f2328} .sub{fill:#6a737d} .life{stroke:#c9ced6} .div{stroke:#d5dae1}
+  .head{fill:#eef2f8;stroke:#c9ced6}
+  .call{stroke:#3a6fd8} .callh{fill:#3a6fd8} .callt{fill:#2456b8}
+  .evt{stroke:#1a7f37} .evth{fill:#1a7f37} .evtt{fill:#1a7f37}
+  .disp{stroke:#6a737d} .disph{fill:#6a737d} .dispt{fill:#4b535c}
+  .wait{fill:#9aa3ad;opacity:.35} .busy{fill:#2f5bb7} .kio{fill:#d97706;opacity:.75}
+  .bad{fill:#b45309} .good{fill:#1a7f37} .note{fill:#b45309}
+  @media (prefers-color-scheme: dark){
+    .bg{fill:#1b1b1f} .ink{fill:#dfdfd6} .sub{fill:#98989f} .life{stroke:#3c3f44} .div{stroke:#3c3f44}
+    .head{fill:#25262b;stroke:#3c3f44}
+    .call{stroke:#6b9bff} .callh{fill:#6b9bff} .callt{fill:#8db2ff}
+    .evt{stroke:#3fb950} .evth{fill:#3fb950} .evtt{fill:#3fb950}
+    .disp{stroke:#98989f} .disph{fill:#98989f} .dispt{fill:#b4b4bb}
+    .wait{fill:#6b7079;opacity:.45} .busy{fill:#4f7fe0} .kio{fill:#f59e0b;opacity:.75}
+    .bad{fill:#fbbf24} .good{fill:#3fb950} .note{fill:#fbbf24}
+  }
+  text{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+</style>
+<defs><marker id="c" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" orient="auto"><path class="callh" d="M0,0 L10,5 L0,10 z"/></marker><marker id="e" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" orient="auto"><path class="evth" d="M0,0 L10,5 L0,10 z"/></marker><marker id="d" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" orient="auto"><path class="disph" d="M0,0 L10,5 L0,10 z"/></marker></defs>
+<rect class="bg" x="0" y="0" width="960" height="500" rx="12"/>
+<text class="ink mono" x="240" y="32" text-anchor="middle" font-size="18" font-weight="700">Reactor</text>
+<text class="sub" x="240" y="52" text-anchor="middle" font-size="12">readiness：内核只告诉你「可以读了」</text>
+<rect class="head" x="37" y="66" width="116" height="38" rx="6"/>
+<text class="ink" x="95" y="83" text-anchor="middle" font-size="13" font-weight="600">应用 handler</text>
+<text class="sub" x="95" y="98" text-anchor="middle" font-size="10.5">你的代码</text>
+<line class="life" x1="95" y1="104" x2="95" y2="356" stroke-width="1.6"/>
+<rect class="head" x="182" y="66" width="116" height="38" rx="6"/>
+<text class="ink" x="240" y="83" text-anchor="middle" font-size="13" font-weight="600">事件循环</text>
+<text class="sub" x="240" y="98" text-anchor="middle" font-size="10.5">event loop</text>
+<line class="life" x1="240" y1="104" x2="240" y2="356" stroke-width="1.6"/>
+<rect class="head" x="327" y="66" width="116" height="38" rx="6"/>
+<text class="ink" x="385" y="83" text-anchor="middle" font-size="13" font-weight="600">内核</text>
+<text class="sub" x="385" y="98" text-anchor="middle" font-size="10.5">kernel</text>
+<line class="life" x1="385" y1="104" x2="385" y2="356" stroke-width="1.6"/>
+<line class="call" x1="240" y1="134" x2="378" y2="134" stroke-width="1.8" marker-end="url(#c)"/>
+<text class="callt" x="312.5" y="128" text-anchor="middle" font-size="11.5" font-weight="600">① 注册 fd，关心可读</text>
+<text class="sub mono" x="312.5" y="148" text-anchor="middle" font-size="10.5">epoll_ctl / kqueue</text>
+<rect class="wait" x="234" y="150" width="12" height="54" rx="2"/>
+<text class="sub mono" x="230" y="182" text-anchor="end" font-size="10.5">epoll_wait()</text>
+<text class="sub" x="395" y="186" text-anchor="start" font-size="11">数据到达</text>
+<line class="evt" x1="385" y1="204" x2="247" y2="204" stroke-width="1.8" marker-end="url(#e)"/>
+<text class="evtt" x="312.5" y="198" text-anchor="middle" font-size="11.5" font-weight="600">② 可读了</text>
+<line class="disp" x1="240" y1="234" x2="102" y2="234" stroke-width="1.8" marker-end="url(#d)"/>
+<text class="dispt" x="167.5" y="228" text-anchor="middle" font-size="11.5" font-weight="600">③ 回调 on_readable</text>
+<line class="call" x1="95" y1="262" x2="378" y2="262" stroke-width="1.8" marker-end="url(#c)"/>
+<text class="callt" x="240.0" y="256" text-anchor="middle" font-size="11.5" font-weight="600">④ 自己调 read(fd, buf)</text>
+<rect class="busy" x="89" y="264" width="12" height="38" rx="2"/>
+<rect class="kio" x="379" y="264" width="12" height="38" rx="2"/>
+<text class="note" x="83" y="280" text-anchor="end" font-size="11" font-weight="700">线程卡在</text>
+<text class="note" x="83" y="295" text-anchor="end" font-size="11" font-weight="700">拷贝上</text>
+<text class="sub" x="395" y="288" text-anchor="start" font-size="11">拷进 buf</text>
+<line class="call" x1="385" y1="302" x2="102" y2="302" stroke-width="1.8" marker-end="url(#c)" stroke-dasharray="5 3"/>
+<text class="callt" x="240.0" y="296" text-anchor="middle" font-size="11.5" font-weight="600">⑤ 返回 n 字节</text>
+<text class="ink" x="105" y="334" text-anchor="start" font-size="11.5" font-weight="600">⑥ 处理数据</text>
+<text class="sub" x="39" y="388" text-anchor="start" font-size="12">事件含义</text>
+<text class="ink" x="115" y="388" text-anchor="start" font-size="12.5">fd 可以读了，还得自己去读</text>
+<text class="sub" x="39" y="412" text-anchor="start" font-size="12">谁做拷贝</text>
+<text class="bad" x="115" y="412" text-anchor="start" font-size="12.5" font-weight="700">应用线程（同步 IO）</text>
+<text class="sub" x="39" y="436" text-anchor="start" font-size="12">代表</text>
+<text class="sub" x="115" y="436" text-anchor="start" font-size="12.5" font-weight="700">epoll / kqueue：nginx、Redis、libuv、Netty</text>
+<line class="div" x1="480" y1="20" x2="480" y2="460" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text class="ink mono" x="720" y="32" text-anchor="middle" font-size="18" font-weight="700">Proactor</text>
+<text class="sub" x="720" y="52" text-anchor="middle" font-size="12">completion：内核告诉你「已经读完了」</text>
+<rect class="head" x="517" y="66" width="116" height="38" rx="6"/>
+<text class="ink" x="575" y="83" text-anchor="middle" font-size="13" font-weight="600">应用 handler</text>
+<text class="sub" x="575" y="98" text-anchor="middle" font-size="10.5">你的代码</text>
+<line class="life" x1="575" y1="104" x2="575" y2="356" stroke-width="1.6"/>
+<rect class="head" x="662" y="66" width="116" height="38" rx="6"/>
+<text class="ink" x="720" y="83" text-anchor="middle" font-size="13" font-weight="600">事件循环</text>
+<text class="sub" x="720" y="98" text-anchor="middle" font-size="10.5">event loop</text>
+<line class="life" x1="720" y1="104" x2="720" y2="356" stroke-width="1.6"/>
+<rect class="head" x="807" y="66" width="116" height="38" rx="6"/>
+<text class="ink" x="865" y="83" text-anchor="middle" font-size="13" font-weight="600">内核</text>
+<text class="sub" x="865" y="98" text-anchor="middle" font-size="10.5">kernel</text>
+<line class="life" x1="865" y1="104" x2="865" y2="356" stroke-width="1.6"/>
+<line class="call" x1="575" y1="134" x2="858" y2="134" stroke-width="1.8" marker-end="url(#c)"/>
+<text class="callt" x="720.0" y="128" text-anchor="middle" font-size="11.5" font-weight="600">① 提交读请求，把 buf 交给内核</text>
+<text class="sub mono" x="792.5" y="150" text-anchor="middle" font-size="10.5">WSARecv / io_uring</text>
+<rect class="wait" x="714" y="150" width="12" height="84" rx="2"/>
+<text class="sub" x="730" y="170" text-anchor="start" font-size="10.5">等完成事件</text>
+<rect class="kio" x="859" y="170" width="12" height="64" rx="2"/>
+<text class="sub" x="875" y="196" text-anchor="start" font-size="11">等数据</text>
+<text class="sub" x="875" y="212" text-anchor="start" font-size="11">拷进 buf</text>
+<text class="good" x="585" y="180" text-anchor="start" font-size="11" font-weight="700">线程不等，</text>
+<text class="good" x="585" y="195" text-anchor="start" font-size="11" font-weight="700">去处理别的连接</text>
+<line class="evt" x1="865" y1="234" x2="727" y2="234" stroke-width="1.8" marker-end="url(#e)"/>
+<text class="evtt" x="792.5" y="228" text-anchor="middle" font-size="11.5" font-weight="600">② 读完了，n 字节</text>
+<text class="sub mono" x="792.5" y="248" text-anchor="middle" font-size="10.5">IOCP 完成包 / CQE</text>
+<line class="disp" x1="720" y1="276" x2="582" y2="276" stroke-width="1.8" marker-end="url(#d)"/>
+<text class="dispt" x="647.5" y="270" text-anchor="middle" font-size="11.5" font-weight="600">③ 回调，带上 buf</text>
+<text class="ink" x="585" y="306" text-anchor="start" font-size="11.5" font-weight="600">④ 数据已在 buf 里，直接处理</text>
+<text class="sub" x="585" y="322" text-anchor="start" font-size="10.5">（完成前 buf 不能动）</text>
+<text class="sub" x="519" y="388" text-anchor="start" font-size="12">事件含义</text>
+<text class="ink" x="595" y="388" text-anchor="start" font-size="12.5">读已经完成，直接用结果</text>
+<text class="sub" x="519" y="412" text-anchor="start" font-size="12">谁做拷贝</text>
+<text class="good" x="595" y="412" text-anchor="start" font-size="12.5" font-weight="700">内核（异步 IO）</text>
+<text class="sub" x="519" y="436" text-anchor="start" font-size="12">代表</text>
+<text class="sub" x="595" y="436" text-anchor="start" font-size="12.5" font-weight="700">IOCP / io_uring：Boost.Asio、asyncio Proactor</text>
+<rect class="busy" x="15" y="472" width="12" height="14" rx="2"/>
+<text class="ink" x="33" y="483" text-anchor="start" font-size="12">应用线程卡在拷贝上</text>
+<rect class="kio" x="165" y="472" width="12" height="14" rx="2"/>
+<text class="ink" x="183" y="483" text-anchor="start" font-size="12">内核在做 IO</text>
+<rect class="wait" x="285" y="472" width="12" height="14" rx="2"/>
+<text class="ink" x="303" y="483" text-anchor="start" font-size="12">事件循环等待</text>
+<line class="call" x1="405" y1="479" x2="435" y2="479" stroke-width="1.8" marker-end="url(#c)"/>
+<text class="ink" x="441" y="483" text-anchor="start" font-size="12">系统调用</text>
+<line class="evt" x1="515" y1="479" x2="545" y2="479" stroke-width="1.8" marker-end="url(#e)"/>
+<text class="ink" x="551" y="483" text-anchor="start" font-size="12">内核事件</text>
+<line class="disp" x1="625" y1="479" x2="655" y2="479" stroke-width="1.8" marker-end="url(#d)"/>
+<text class="ink" x="661" y="483" text-anchor="start" font-size="12">分发给 handler</text>
+</svg>

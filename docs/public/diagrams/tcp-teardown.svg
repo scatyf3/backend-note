@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 650" width="780" height="650" role="img" aria-label="TCP 四次挥手时序图">
+<title>TCP 四次挥手时序图</title>
+<style>
+  .bg{fill:#ffffff} .ink{fill:#1f2328} .sub{fill:#6a737d} .life{stroke:#c9ced6}
+  .msg{stroke:#3a6fd8} .msgt{fill:#2456b8} .data{stroke:#9aa3ad} .datat{fill:#6a737d}
+  .head{fill:#eef2f8;stroke:#c9ced6} .span{fill:#3a6fd8;opacity:.14} .tw{fill:#d97706;opacity:.22} .twt{fill:#b45309}
+  .ah{fill:#3a6fd8} .ahd{fill:#9aa3ad} .brace{stroke:#d97706} .bracet{fill:#b45309}
+  @media (prefers-color-scheme: dark){
+    .bg{fill:#1b1b1f} .ink{fill:#dfdfd6} .sub{fill:#98989f} .life{stroke:#3c3f44}
+    .msg{stroke:#6b9bff} .msgt{fill:#8db2ff} .data{stroke:#6b7079} .datat{fill:#98989f}
+    .head{fill:#25262b;stroke:#3c3f44} .span{fill:#6b9bff;opacity:.16} .tw{fill:#f59e0b;opacity:.22} .twt{fill:#fbbf24}
+    .ah{fill:#6b9bff} .ahd{fill:#6b7079} .brace{stroke:#f59e0b} .bracet{fill:#fbbf24}
+  }
+  text{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+</style>
+<defs>
+  <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path class="ah" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="d" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path class="ahd" d="M0,0 L10,5 L0,10 z"/></marker>
+</defs>
+<rect class="bg" x="0" y="0" width="780" height="650" rx="12"/>
+<line class="life" x1="220" y1="66" x2="220" y2="630" stroke-width="2"/><line class="life" x1="540" y1="66" x2="540" y2="630" stroke-width="2"/>
+<rect class="head" x="130" y="16" width="180" height="50" rx="8"/>
+<text class="ink" x="220" y="38" text-anchor="middle" font-size="16" font-weight="600">A（主动关闭方）</text>
+<text class="sub mono" x="220" y="56" text-anchor="middle" font-size="12">先调 close()</text>
+<rect class="head" x="450" y="16" width="180" height="50" rx="8"/>
+<text class="ink" x="540" y="38" text-anchor="middle" font-size="16" font-weight="600">B（被动关闭方）</text>
+<text class="sub mono" x="540" y="56" text-anchor="middle" font-size="12">后调 close()</text>
+<text class="ink mono" x="206" y="101" text-anchor="end" font-size="14" font-weight="700">ESTABLISHED</text>
+<circle class="ink" cx="220" cy="96" r="4"/>
+<text class="ink mono" x="554" y="101" text-anchor="start" font-size="14" font-weight="700">ESTABLISHED</text>
+<circle class="ink" cx="540" cy="96" r="4"/>
+<line class="msg" x1="220" y1="140" x2="540" y2="200" stroke-width="2" marker-end="url(#a)"/>
+<text class="msgt mono" x="380.0" y="162.0" text-anchor="middle" font-size="13.5" font-weight="600" transform="rotate(10.62 380.0 170.0)">1. FIN   seq=u</text>
+<text class="ink mono" x="206" y="145" text-anchor="end" font-size="14" font-weight="700">FIN_WAIT_1</text>
+<text class="sub" x="206" y="163" text-anchor="end" font-size="12.5">应用调 close()</text>
+<circle class="ink" cx="220" cy="140" r="4"/>
+<text class="ink mono" x="554" y="205" text-anchor="start" font-size="14" font-weight="700">CLOSE_WAIT</text>
+<text class="sub" x="554" y="223" text-anchor="start" font-size="12.5">read() 返回 0，读到 EOF</text>
+<circle class="ink" cx="540" cy="200" r="4"/>
+<rect class="span" x="533" y="200" width="14" height="190" rx="3"/>
+<line class="msg" x1="540" y1="214" x2="220" y2="274" stroke-width="2" marker-end="url(#a)"/>
+<text class="msgt mono" x="380.0" y="236.0" text-anchor="middle" font-size="13.5" font-weight="600" transform="rotate(349.38 380.0 244.0)">2. ACK   ack=u+1  (内核立刻回)</text>
+<text class="ink mono" x="206" y="279" text-anchor="end" font-size="14" font-weight="700">FIN_WAIT_2</text>
+<text class="sub" x="206" y="297" text-anchor="end" font-size="12.5">A→B 方向已关</text>
+<circle class="ink" cx="220" cy="274" r="4"/>
+<line class="data" x1="540" y1="306" x2="220" y2="356" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#d)"/>
+<text class="datat mono" x="380.0" y="323.0" text-anchor="middle" font-size="13.5" font-weight="600" transform="rotate(351.12 380.0 331.0)">数据（半关闭：B 还能发）</text>
+<line class="msg" x1="540" y1="390" x2="220" y2="450" stroke-width="2" marker-end="url(#a)"/>
+<text class="msgt mono" x="380.0" y="412.0" text-anchor="middle" font-size="13.5" font-weight="600" transform="rotate(349.38 380.0 420.0)">3. FIN   seq=w</text>
+<text class="ink mono" x="554" y="395" text-anchor="start" font-size="14" font-weight="700">LAST_ACK</text>
+<text class="sub" x="554" y="413" text-anchor="start" font-size="12.5">应用处理完，调 close()</text>
+<circle class="ink" cx="540" cy="390" r="4"/>
+<text class="ink mono" x="206" y="455" text-anchor="end" font-size="14" font-weight="700">TIME_WAIT</text>
+<text class="sub" x="206" y="473" text-anchor="end" font-size="12.5">等 2MSL（Linux 60 s）</text>
+<circle class="ink" cx="220" cy="450" r="4"/>
+<line class="msg" x1="220" y1="466" x2="540" y2="526" stroke-width="2" marker-end="url(#a)"/>
+<text class="msgt mono" x="380.0" y="488.0" text-anchor="middle" font-size="13.5" font-weight="600" transform="rotate(10.62 380.0 496.0)">4. ACK   ack=w+1</text>
+<text class="ink mono" x="554" y="531" text-anchor="start" font-size="14" font-weight="700">CLOSED</text>
+<circle class="ink" cx="540" cy="526" r="4"/>
+<rect class="tw" x="213" y="450" width="14" height="150" rx="3"/>
+<text class="twt" x="236" y="570" font-size="12.5" font-weight="600">TIME_WAIT 期间：最后的 ACK 丢了还能重发</text>
+<text class="ink mono" x="206" y="615" text-anchor="end" font-size="14" font-weight="700">CLOSED</text>
+<circle class="ink" cx="220" cy="610" r="4"/>
+</svg>

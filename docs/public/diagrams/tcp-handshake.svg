@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 400" width="780" height="400" role="img" aria-label="TCP 三次握手时序图">
+<title>TCP 三次握手时序图</title>
+<style>
+  .bg{fill:#ffffff} .ink{fill:#1f2328} .sub{fill:#6a737d} .life{stroke:#c9ced6}
+  .msg{stroke:#3a6fd8} .msgt{fill:#2456b8} .data{stroke:#9aa3ad} .datat{fill:#6a737d}
+  .head{fill:#eef2f8;stroke:#c9ced6} .span{fill:#3a6fd8;opacity:.14} .tw{fill:#d97706;opacity:.22} .twt{fill:#b45309}
+  .ah{fill:#3a6fd8} .ahd{fill:#9aa3ad} .brace{stroke:#d97706} .bracet{fill:#b45309}
+  @media (prefers-color-scheme: dark){
+    .bg{fill:#1b1b1f} .ink{fill:#dfdfd6} .sub{fill:#98989f} .life{stroke:#3c3f44}
+    .msg{stroke:#6b9bff} .msgt{fill:#8db2ff} .data{stroke:#6b7079} .datat{fill:#98989f}
+    .head{fill:#25262b;stroke:#3c3f44} .span{fill:#6b9bff;opacity:.16} .tw{fill:#f59e0b;opacity:.22} .twt{fill:#fbbf24}
+    .ah{fill:#6b9bff} .ahd{fill:#6b7079} .brace{stroke:#f59e0b} .bracet{fill:#fbbf24}
+  }
+  text{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+</style>
+<defs>
+  <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path class="ah" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="d" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path class="ahd" d="M0,0 L10,5 L0,10 z"/></marker>
+</defs>
+<rect class="bg" x="0" y="0" width="780" height="400" rx="12"/>
+<line class="life" x1="220" y1="66" x2="220" y2="380" stroke-width="2"/><line class="life" x1="540" y1="66" x2="540" y2="380" stroke-width="2"/>
+<rect class="head" x="130" y="16" width="180" height="50" rx="8"/>
+<text class="ink" x="220" y="38" text-anchor="middle" font-size="16" font-weight="600">客户端</text>
+<text class="sub mono" x="220" y="56" text-anchor="middle" font-size="12">connect()</text>
+<rect class="head" x="450" y="16" width="180" height="50" rx="8"/>
+<text class="ink" x="540" y="38" text-anchor="middle" font-size="16" font-weight="600">服务端</text>
+<text class="sub mono" x="540" y="56" text-anchor="middle" font-size="12">listen() → accept()</text>
+<text class="ink mono" x="206" y="101" text-anchor="end" font-size="14" font-weight="700">CLOSED</text>
+<circle class="ink" cx="220" cy="96" r="4"/>
+<text class="ink mono" x="554" y="101" text-anchor="start" font-size="14" font-weight="700">LISTEN</text>
+<text class="sub" x="554" y="119" text-anchor="start" font-size="12.5">listen() 之后</text>
+<circle class="ink" cx="540" cy="96" r="4"/>
+<line class="msg" x1="220" y1="140" x2="540" y2="200" stroke-width="2" marker-end="url(#a)"/>
+<text class="msgt mono" x="380.0" y="162.0" text-anchor="middle" font-size="13.5" font-weight="600" transform="rotate(10.62 380.0 170.0)">1. SYN   seq=x</text>
+<text class="ink mono" x="206" y="145" text-anchor="end" font-size="14" font-weight="700">SYN_SENT</text>
+<circle class="ink" cx="220" cy="140" r="4"/>
+<text class="ink mono" x="554" y="205" text-anchor="start" font-size="14" font-weight="700">SYN_RCVD</text>
+<text class="sub" x="554" y="223" text-anchor="start" font-size="12.5">放进半连接队列</text>
+<circle class="ink" cx="540" cy="200" r="4"/>
+<rect class="span" x="533" y="200" width="14" height="120" rx="3"/>
+<line class="msg" x1="540" y1="214" x2="220" y2="274" stroke-width="2" marker-end="url(#a)"/>
+<text class="msgt mono" x="380.0" y="236.0" text-anchor="middle" font-size="13.5" font-weight="600" transform="rotate(349.38 380.0 244.0)">2. SYN+ACK   seq=y, ack=x+1</text>
+<text class="ink mono" x="206" y="279" text-anchor="end" font-size="14" font-weight="700">ESTABLISHED</text>
+<text class="sub" x="206" y="297" text-anchor="end" font-size="12.5">connect() 返回，可以发数据了</text>
+<circle class="ink" cx="220" cy="274" r="4"/>
+<line class="msg" x1="220" y1="290" x2="540" y2="350" stroke-width="2" marker-end="url(#a)"/>
+<text class="msgt mono" x="380.0" y="312.0" text-anchor="middle" font-size="13.5" font-weight="600" transform="rotate(10.62 380.0 320.0)">3. ACK   ack=y+1  (+ 请求数据)</text>
+<text class="ink mono" x="554" y="355" text-anchor="start" font-size="14" font-weight="700">ESTABLISHED</text>
+<text class="sub" x="554" y="373" text-anchor="start" font-size="12.5">挪进全连接队列，等 accept() 取走</text>
+<circle class="ink" cx="540" cy="350" r="4"/>
+<path class="brace" d="M50,140 L40,140 L40,274 L50,274" fill="none" stroke-width="2"/>
+<text class="bracet" x="32" y="212" text-anchor="middle" font-size="13" font-weight="700" transform="rotate(-90 32 207)">1 RTT</text>
+</svg>
