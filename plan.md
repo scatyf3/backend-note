@@ -114,8 +114,8 @@ DocPilot（`../DocPilot`，RAG + Agent 应用）和 LLMGateway（`../LLMGateway`
 ### 第 7 层 安全
 - [x] sec-owasp → `backend/owasp` 应用安全：OWASP
 - [x] sec-privacy → `backend/privacy-pii` 数据隐私与 PII
-- [ ] sec-injection → `ai/prompt-injection` Prompt injection
-- [ ] sec-sandbox → `ai/agent-sandbox` Agent 权限与沙箱
+- [x] sec-injection → `ai/prompt-injection` Prompt injection
+- [x] sec-sandbox → `ai/agent-sandbox` Agent 权限与沙箱
 - [ ] sec-guardrails → `ai/guardrails` Guardrails
 
 ### 第 8 层 架构与权衡

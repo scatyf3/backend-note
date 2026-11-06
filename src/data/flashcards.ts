@@ -47,6 +47,8 @@ import { cards as llmTracing } from './cards/llm-tracing'
 import { cards as onlineEvalsAb } from './cards/online-evals-ab'
 import { cards as owasp } from './cards/owasp'
 import { cards as privacyPii } from './cards/privacy-pii'
+import { cards as promptInjection } from './cards/prompt-injection'
+import { cards as agentSandbox } from './cards/agent-sandbox'
 
 export const cards: Card[] = [
   ...networkTcpHttpTls,
@@ -89,6 +91,8 @@ export const cards: Card[] = [
   ...onlineEvalsAb,
   ...owasp,
   ...privacyPii,
+  ...promptInjection,
+  ...agentSandbox,
 ]
 
 /** 删掉的卡：data 分支和各设备的本地缓存里可能还留着它们的复习记录、批注，页面不显示，测试放行 */
