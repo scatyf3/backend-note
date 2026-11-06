@@ -21,6 +21,7 @@
 - 闪卡文件 `src/data/cards/<slug>.ts` 导出 `cards`，在 `src/data/flashcards.ts` 里 `import { cards as xxx }` 再 `...xxx` 展开。
 - 引用 DocPilot / LLMGateway 代码前先打开源文件核对原文。
 - 金额：笔记正文用 `\$4`（markdown 转义有效）；**闪卡里不能写 `$` 金额**，KaTeX 会当公式解析，测试会挂，写成「4 美元」。
+- 正文里出现 `{{ ... }}` 时（比如 f-string 转义），**不要放进行内代码**，VitePress 会当成 Vue 插值；放进 fenced code block（自动 v-pre）。
 
 ## 写作口径
 
@@ -49,7 +50,7 @@ DocPilot（`../DocPilot`，RAG + Agent 应用）和 LLMGateway（`../LLMGateway`
 | ctx-rag | heading-aware chunker、overlap 保证短事实不被切断、RRF（k=60，只用排名不用分数）、rerank 只重排头部 |
 | ag-loop | DocPilot `agent/loop.py`：先看 stop_reason 再执行工具（max_tokens 截断的 tool call 不能跑）、步数上限、同一轮工具并发 `gather` |
 | ds-resilience | LLMGateway：SDK 重试关掉（叠加重试放大尾延迟）、预算耗尽回 402 而不是 429（SDK 会自动重试 429） |
-| gw-routing | LLMGateway：流式只在首字节前 fallback、5xx/429/超时才 fallback、Redis Lua 双令牌桶（rpm + tpm）、输出 token 事后扣（post-paid） |
+| gw-routing | LLMGateway：限流 Lua 用调用方传入的 `now`（各副本时钟偏差会影响补充速率，可改用 Redis `TIME`）；流式只在首字节前 fallback、5xx/429/超时才 fallback、Redis Lua 双令牌桶（rpm + tpm）、输出 token 事后扣（post-paid） |
 | ops-deploy | Fly release command 跑 `db init`、`/healthz` 查 DB |
 | ev-offline | DocPilot evals：引用原文 quote 判相关（换切分标签不失效）、隔离 schema、LLM judge + 人工 spotcheck、CI 贴 diff |
 | ev-tracing | DocPilot `traces` 表（检索到的 chunk、工具调用、token、延迟、成本）；LLMGateway `x-gateway-overhead-ms` 的定义 |
@@ -99,8 +100,8 @@ DocPilot（`../DocPilot`，RAG + Agent 应用）和 LLMGateway（`../LLMGateway`
 - [x] ds-replication → `backend/replication-consensus` 复制与一致性
 - [x] ds-sharding → `backend/sharding` 分片
 - [x] ds-txn → `backend/distributed-transactions` 分布式事务与 Saga
-- [ ] ds-resilience → `backend/rate-limit-circuit-breaker` 限流、熔断与重试
-- [ ] gw-routing → `ai/llm-gateway` LLM 网关
+- [x] ds-resilience → `backend/rate-limit-circuit-breaker` 限流、熔断与重试
+- [x] gw-routing → `ai/llm-gateway` LLM 网关
 
 ### 第 6 层 运行与质量
 - [ ] ops-deploy → `backend/containers-cicd` 容器、K8s 与 CI/CD
