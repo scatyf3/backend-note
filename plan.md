@@ -83,8 +83,8 @@ DocPilot（`../DocPilot`，RAG + Agent 应用）和 LLMGateway（`../LLMGateway`
 - [x] gw-cache → `ai/prompt-semantic-cache` Prompt caching 与语义缓存
 
 ### 第 3 层 上下文工程
-- [ ] ctx-prompt → `ai/prompt-versioning` Prompt 设计与版本管理
-- [ ] ctx-rag → `ai/rag` RAG：切分、检索与重排
+- [x] ctx-prompt → `ai/prompt-versioning` Prompt 设计与版本管理
+- [x] ctx-rag → `ai/rag` RAG：切分、检索与重排
 - [ ] ctx-compaction → `ai/context-compaction` 上下文压缩
 
 ### 第 4 层 异步与编排
