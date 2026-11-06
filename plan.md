@@ -89,8 +89,8 @@ DocPilot（`../DocPilot`，RAG + Agent 应用）和 LLMGateway（`../LLMGateway`
 
 ### 第 4 层 异步与编排
 - [x] mq-broker → `backend/message-queue` 消息队列
-- [ ] mq-jobs → `backend/background-jobs` 后台任务
-- [ ] mq-outbox → `backend/outbox-event-driven` Outbox 与事件驱动
+- [x] mq-jobs → `backend/background-jobs` 后台任务
+- [x] mq-outbox → `backend/outbox-event-driven` Outbox 与事件驱动
 - [ ] mq-workflow → `backend/durable-execution` 工作流与 durable execution
 - [ ] ag-loop → `ai/agent-loop` Agent 循环
 - [ ] ag-durable → `ai/long-running-agents` 长任务与 human-in-the-loop

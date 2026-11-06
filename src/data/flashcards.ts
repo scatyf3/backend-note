@@ -29,6 +29,8 @@ import { cards as promptVersioning } from './cards/prompt-versioning'
 import { cards as rag } from './cards/rag'
 import { cards as contextCompaction } from './cards/context-compaction'
 import { cards as messageQueue } from './cards/message-queue'
+import { cards as backgroundJobs } from './cards/background-jobs'
+import { cards as outboxEventDriven } from './cards/outbox-event-driven'
 
 export const cards: Card[] = [
   ...networkTcpHttpTls,
@@ -53,6 +55,8 @@ export const cards: Card[] = [
   ...rag,
   ...contextCompaction,
   ...messageQueue,
+  ...backgroundJobs,
+  ...outboxEventDriven,
 ]
 
 /** 删掉的卡：data 分支和各设备的本地缓存里可能还留着它们的复习记录、批注，页面不显示，测试放行 */
