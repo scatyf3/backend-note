@@ -85,10 +85,10 @@ DocPilot（`../DocPilot`，RAG + Agent 应用）和 LLMGateway（`../LLMGateway`
 ### 第 3 层 上下文工程
 - [x] ctx-prompt → `ai/prompt-versioning` Prompt 设计与版本管理
 - [x] ctx-rag → `ai/rag` RAG：切分、检索与重排
-- [ ] ctx-compaction → `ai/context-compaction` 上下文压缩
+- [x] ctx-compaction → `ai/context-compaction` 上下文压缩
 
 ### 第 4 层 异步与编排
-- [ ] mq-broker → `backend/message-queue` 消息队列
+- [x] mq-broker → `backend/message-queue` 消息队列
 - [ ] mq-jobs → `backend/background-jobs` 后台任务
 - [ ] mq-outbox → `backend/outbox-event-driven` Outbox 与事件驱动
 - [ ] mq-workflow → `backend/durable-execution` 工作流与 durable execution
