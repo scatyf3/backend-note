@@ -7,8 +7,13 @@
 // ref 是出处：站内链接，不含 base，可带 #锚点（测试会检查页面存在）。多行代码用 lines`...` 写，可以跟着缩进。
 
 import type { Card } from '@lib/flashcards'
+import { cards as networkTcpHttpTls } from './cards/network-tcp-http-tls'
+import { cards as osIoModels } from './cards/os-io-models'
 
-export const cards: Card[] = []
+export const cards: Card[] = [
+  ...networkTcpHttpTls,
+  ...osIoModels,
+]
 
 /** 删掉的卡：data 分支和各设备的本地缓存里可能还留着它们的复习记录、批注，页面不显示，测试放行 */
 export const retiredIds: string[] = ['example-what', 'example-code']
