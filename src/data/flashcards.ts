@@ -35,6 +35,8 @@ import { cards as durableExecution } from './cards/durable-execution'
 import { cards as agentLoop } from './cards/agent-loop'
 import { cards as longRunningAgents } from './cards/long-running-agents'
 import { cards as replicationConsensus } from './cards/replication-consensus'
+import { cards as sharding } from './cards/sharding'
+import { cards as distributedTransactions } from './cards/distributed-transactions'
 
 export const cards: Card[] = [
   ...networkTcpHttpTls,
@@ -65,6 +67,8 @@ export const cards: Card[] = [
   ...agentLoop,
   ...longRunningAgents,
   ...replicationConsensus,
+  ...sharding,
+  ...distributedTransactions,
 ]
 
 /** 删掉的卡：data 分支和各设备的本地缓存里可能还留着它们的复习记录、批注，页面不显示，测试放行 */

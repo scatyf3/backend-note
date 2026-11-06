@@ -97,8 +97,8 @@ DocPilot（`../DocPilot`，RAG + Agent 应用）和 LLMGateway（`../LLMGateway`
 
 ### 第 5 层 分布式与韧性
 - [x] ds-replication → `backend/replication-consensus` 复制与一致性
-- [ ] ds-sharding → `backend/sharding` 分片
-- [ ] ds-txn → `backend/distributed-transactions` 分布式事务与 Saga
+- [x] ds-sharding → `backend/sharding` 分片
+- [x] ds-txn → `backend/distributed-transactions` 分布式事务与 Saga
 - [ ] ds-resilience → `backend/rate-limit-circuit-breaker` 限流、熔断与重试
 - [ ] gw-routing → `ai/llm-gateway` LLM 网关
 
