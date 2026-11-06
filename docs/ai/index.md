@@ -1,12 +1,12 @@
 ---
-title: 笔记
+title: AI 新增
 ---
 
-# 笔记
+# AI 新增
 
 <script setup>
 import { data as topics } from '../.vitepress/data/topics.data'
-const notes = topics.filter((t) => t.domain === 'notes' && !t.isIndex)
+const notes = topics.filter((t) => t.domain === 'ai' && !t.isIndex)
 const label = { todo: '未写', draft: '草稿', reviewed: '已复习' }
 </script>
 

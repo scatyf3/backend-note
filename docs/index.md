@@ -3,8 +3,8 @@ layout: home
 title: 首页
 
 hero:
-  name: Learn Stack
-  text: 分层图 + 每格一篇笔记 + 闪卡
+  name: Backend Note
+  text: AI 时代的后端知识地图
   actions:
     - theme: brand
       text: 闪卡复习
