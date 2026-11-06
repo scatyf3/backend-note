@@ -122,6 +122,6 @@ DocPilot（`../DocPilot`，RAG + Agent 应用）和 LLMGateway（`../LLMGateway`
 - [x] arch-boundaries → `backend/service-boundaries` 服务边界
 - [x] arch-capacity → `backend/capacity-estimation` 容量估算与高并发设计
 - [x] arch-cost → `backend/cost` 成本
-- [ ] ai-interaction → `ai/interaction-patterns` 同步 / 异步交互模式
-- [ ] ai-cost → `ai/model-tiering-batch` 模型分级与 batch
+- [x] ai-interaction → `ai/interaction-patterns` 同步 / 异步交互模式
+- [x] ai-cost → `ai/model-tiering-batch` 模型分级与 batch
 - [ ] ai-selfhost → `ai/self-host-vs-api` 自托管推理还是调 API
