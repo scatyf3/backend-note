@@ -104,8 +104,8 @@ DocPilot（`../DocPilot`，RAG + Agent 应用）和 LLMGateway（`../LLMGateway`
 - [x] gw-routing → `ai/llm-gateway` LLM 网关
 
 ### 第 6 层 运行与质量
-- [ ] ops-deploy → `backend/containers-cicd` 容器、K8s 与 CI/CD
-- [ ] ops-observability → `backend/observability` 可观测性
+- [x] ops-deploy → `backend/containers-cicd` 容器、K8s 与 CI/CD
+- [x] ops-observability → `backend/observability` 可观测性
 - [ ] ops-release → `backend/progressive-delivery` 灰度与 feature flag
 - [ ] ev-offline → `ai/offline-evals` 离线 eval 与 LLM-as-judge
 - [ ] ev-tracing → `ai/llm-tracing` LLM tracing
