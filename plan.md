@@ -69,8 +69,8 @@ DocPilot（`../DocPilot`，RAG + Agent 应用）和 LLMGateway（`../LLMGateway`
 ### 第 1 层 接口
 - [x] api-design → `backend/api-design` API 设计与序列化
 - [x] api-auth → `backend/auth` 认证与鉴权
-- [ ] api-idempotency → `backend/idempotency` 幂等与错误语义
-- [ ] api-streaming → `backend/streaming-sse-websocket` 流式接口
+- [x] api-idempotency → `backend/idempotency` 幂等与错误语义
+- [x] api-streaming → `backend/streaming-sse-websocket` 流式接口
 - [ ] gw-api → `ai/provider-api-structured-output` Provider API 与结构化输出
 - [ ] ag-tools → `ai/tool-calling-mcp` Tool calling 与 MCP
 
