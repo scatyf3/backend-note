@@ -51,6 +51,8 @@ import { cards as promptInjection } from './cards/prompt-injection'
 import { cards as agentSandbox } from './cards/agent-sandbox'
 import { cards as guardrails } from './cards/guardrails'
 import { cards as serviceBoundaries } from './cards/service-boundaries'
+import { cards as capacityEstimation } from './cards/capacity-estimation'
+import { cards as cost } from './cards/cost'
 
 export const cards: Card[] = [
   ...networkTcpHttpTls,
@@ -97,6 +99,8 @@ export const cards: Card[] = [
   ...agentSandbox,
   ...guardrails,
   ...serviceBoundaries,
+  ...capacityEstimation,
+  ...cost,
 ]
 
 /** 删掉的卡：data 分支和各设备的本地缓存里可能还留着它们的复习记录、批注，页面不显示，测试放行 */
