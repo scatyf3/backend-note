@@ -20,6 +20,7 @@
 - 闪卡 `ref` 的 `#锚点` 要用 VitePress 生成的 id：先 `npm run docs:build`，再在 dist 里 grep `<h2 id=`（scratchpad 里有 `anchors.sh`），中文全角标点会变成 `-`。
 - 闪卡文件 `src/data/cards/<slug>.ts` 导出 `cards`，在 `src/data/flashcards.ts` 里 `import { cards as xxx }` 再 `...xxx` 展开。
 - 引用 DocPilot / LLMGateway 代码前先打开源文件核对原文。
+- 金额：笔记正文用 `\$4`（markdown 转义有效）；**闪卡里不能写 `$` 金额**，KaTeX 会当公式解析，测试会挂，写成「4 美元」。
 
 ## 写作口径
 
@@ -66,8 +67,8 @@ DocPilot（`../DocPilot`，RAG + Agent 应用）和 LLMGateway（`../LLMGateway`
 - [x] llm-latency-cost → `ai/llm-latency-cost` 延迟与成本模型
 
 ### 第 1 层 接口
-- [ ] api-design → `backend/api-design` API 设计与序列化
-- [ ] api-auth → `backend/auth` 认证与鉴权
+- [x] api-design → `backend/api-design` API 设计与序列化
+- [x] api-auth → `backend/auth` 认证与鉴权
 - [ ] api-idempotency → `backend/idempotency` 幂等与错误语义
 - [ ] api-streaming → `backend/streaming-sse-websocket` 流式接口
 - [ ] gw-api → `ai/provider-api-structured-output` Provider API 与结构化输出

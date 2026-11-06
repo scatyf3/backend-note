@@ -13,6 +13,8 @@ import { cards as concurrencyModels } from './cards/concurrency-models'
 import { cards as tokensContextWindow } from './cards/tokens-context-window'
 import { cards as samplingNondeterminism } from './cards/sampling-nondeterminism'
 import { cards as llmLatencyCost } from './cards/llm-latency-cost'
+import { cards as apiDesign } from './cards/api-design'
+import { cards as auth } from './cards/auth'
 
 export const cards: Card[] = [
   ...networkTcpHttpTls,
@@ -21,6 +23,8 @@ export const cards: Card[] = [
   ...tokensContextWindow,
   ...samplingNondeterminism,
   ...llmLatencyCost,
+  ...apiDesign,
+  ...auth,
 ]
 
 /** 删掉的卡：data 分支和各设备的本地缓存里可能还留着它们的复习记录、批注，页面不显示，测试放行 */
