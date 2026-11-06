@@ -93,10 +93,10 @@ DocPilot（`../DocPilot`，RAG + Agent 应用）和 LLMGateway（`../LLMGateway`
 - [x] mq-outbox → `backend/outbox-event-driven` Outbox 与事件驱动
 - [x] mq-workflow → `backend/durable-execution` 工作流与 durable execution
 - [x] ag-loop → `ai/agent-loop` Agent 循环
-- [ ] ag-durable → `ai/long-running-agents` 长任务与 human-in-the-loop
+- [x] ag-durable → `ai/long-running-agents` 长任务与 human-in-the-loop
 
 ### 第 5 层 分布式与韧性
-- [ ] ds-replication → `backend/replication-consensus` 复制与一致性
+- [x] ds-replication → `backend/replication-consensus` 复制与一致性
 - [ ] ds-sharding → `backend/sharding` 分片
 - [ ] ds-txn → `backend/distributed-transactions` 分布式事务与 Saga
 - [ ] ds-resilience → `backend/rate-limit-circuit-breaker` 限流、熔断与重试

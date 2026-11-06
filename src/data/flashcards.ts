@@ -33,6 +33,8 @@ import { cards as backgroundJobs } from './cards/background-jobs'
 import { cards as outboxEventDriven } from './cards/outbox-event-driven'
 import { cards as durableExecution } from './cards/durable-execution'
 import { cards as agentLoop } from './cards/agent-loop'
+import { cards as longRunningAgents } from './cards/long-running-agents'
+import { cards as replicationConsensus } from './cards/replication-consensus'
 
 export const cards: Card[] = [
   ...networkTcpHttpTls,
@@ -61,6 +63,8 @@ export const cards: Card[] = [
   ...outboxEventDriven,
   ...durableExecution,
   ...agentLoop,
+  ...longRunningAgents,
+  ...replicationConsensus,
 ]
 
 /** 删掉的卡：data 分支和各设备的本地缓存里可能还留着它们的复习记录、批注，页面不显示，测试放行 */
