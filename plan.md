@@ -106,8 +106,8 @@ DocPilot（`../DocPilot`，RAG + Agent 应用）和 LLMGateway（`../LLMGateway`
 ### 第 6 层 运行与质量
 - [x] ops-deploy → `backend/containers-cicd` 容器、K8s 与 CI/CD
 - [x] ops-observability → `backend/observability` 可观测性
-- [ ] ops-release → `backend/progressive-delivery` 灰度与 feature flag
-- [ ] ev-offline → `ai/offline-evals` 离线 eval 与 LLM-as-judge
+- [x] ops-release → `backend/progressive-delivery` 灰度与 feature flag
+- [x] ev-offline → `ai/offline-evals` 离线 eval 与 LLM-as-judge
 - [ ] ev-tracing → `ai/llm-tracing` LLM tracing
 - [ ] ev-online → `ai/online-evals-ab` 线上回归与 A/B
 

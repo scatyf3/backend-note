@@ -41,6 +41,8 @@ import { cards as rateLimitCircuitBreaker } from './cards/rate-limit-circuit-bre
 import { cards as llmGateway } from './cards/llm-gateway'
 import { cards as containersCicd } from './cards/containers-cicd'
 import { cards as observability } from './cards/observability'
+import { cards as progressiveDelivery } from './cards/progressive-delivery'
+import { cards as offlineEvals } from './cards/offline-evals'
 
 export const cards: Card[] = [
   ...networkTcpHttpTls,
@@ -77,6 +79,8 @@ export const cards: Card[] = [
   ...llmGateway,
   ...containersCicd,
   ...observability,
+  ...progressiveDelivery,
+  ...offlineEvals,
 ]
 
 /** 删掉的卡：data 分支和各设备的本地缓存里可能还留着它们的复习记录、批注，页面不显示，测试放行 */
