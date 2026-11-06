@@ -62,8 +62,8 @@ DocPilot（`../DocPilot`，RAG + Agent 应用）和 LLMGateway（`../LLMGateway`
 - [x] f-os-io → `backend/os-io-models` OS 与 IO 模型
 - [x] f-concurrency → `backend/concurrency-models` 并发模型
 - [x] llm-token → `ai/tokens-context-window` Token 与上下文窗口
-- [ ] llm-sampling → `ai/sampling-nondeterminism` 采样、非确定性与幻觉
-- [ ] llm-latency-cost → `ai/llm-latency-cost` 延迟与成本模型
+- [x] llm-sampling → `ai/sampling-nondeterminism` 采样、非确定性与幻觉
+- [x] llm-latency-cost → `ai/llm-latency-cost` 延迟与成本模型
 
 ### 第 1 层 接口
 - [ ] api-design → `backend/api-design` API 设计与序列化

@@ -11,12 +11,16 @@ import { cards as networkTcpHttpTls } from './cards/network-tcp-http-tls'
 import { cards as osIoModels } from './cards/os-io-models'
 import { cards as concurrencyModels } from './cards/concurrency-models'
 import { cards as tokensContextWindow } from './cards/tokens-context-window'
+import { cards as samplingNondeterminism } from './cards/sampling-nondeterminism'
+import { cards as llmLatencyCost } from './cards/llm-latency-cost'
 
 export const cards: Card[] = [
   ...networkTcpHttpTls,
   ...osIoModels,
   ...concurrencyModels,
   ...tokensContextWindow,
+  ...samplingNondeterminism,
+  ...llmLatencyCost,
 ]
 
 /** 删掉的卡：data 分支和各设备的本地缓存里可能还留着它们的复习记录、批注，页面不显示，测试放行 */
