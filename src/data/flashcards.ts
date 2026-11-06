@@ -21,6 +21,8 @@ import { cards as providerApi } from './cards/provider-api-structured-output'
 import { cards as toolCallingMcp } from './cards/tool-calling-mcp'
 import { cards as sqlIndexTransaction } from './cards/sql-index-transaction'
 import { cards as caching } from './cards/caching'
+import { cards as nosqlFulltext } from './cards/nosql-fulltext'
+import { cards as embeddingVectorIndex } from './cards/embedding-vector-index'
 
 export const cards: Card[] = [
   ...networkTcpHttpTls,
@@ -37,6 +39,8 @@ export const cards: Card[] = [
   ...toolCallingMcp,
   ...sqlIndexTransaction,
   ...caching,
+  ...nosqlFulltext,
+  ...embeddingVectorIndex,
 ]
 
 /** 删掉的卡：data 分支和各设备的本地缓存里可能还留着它们的复习记录、批注，页面不显示，测试放行 */

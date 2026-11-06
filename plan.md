@@ -77,8 +77,8 @@ DocPilot（`../DocPilot`，RAG + Agent 应用）和 LLMGateway（`../LLMGateway`
 ### 第 2 层 数据与状态
 - [x] st-sql → `backend/sql-index-transaction` 索引、事务与隔离级别
 - [x] st-cache → `backend/caching` 缓存
-- [ ] st-nosql → `backend/nosql-fulltext` NoSQL 与全文检索
-- [ ] st-vector → `ai/embedding-vector-index` Embedding 与向量索引
+- [x] st-nosql → `backend/nosql-fulltext` NoSQL 与全文检索
+- [x] st-vector → `ai/embedding-vector-index` Embedding 与向量索引
 - [ ] ctx-memory → `ai/conversation-memory` 会话与记忆
 - [ ] gw-cache → `ai/prompt-semantic-cache` Prompt caching 与语义缓存
 
