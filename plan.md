@@ -124,4 +124,4 @@ DocPilot（`../DocPilot`，RAG + Agent 应用）和 LLMGateway（`../LLMGateway`
 - [x] arch-cost → `backend/cost` 成本
 - [x] ai-interaction → `ai/interaction-patterns` 同步 / 异步交互模式
 - [x] ai-cost → `ai/model-tiering-batch` 模型分级与 batch
-- [ ] ai-selfhost → `ai/self-host-vs-api` 自托管推理还是调 API
+- [x] ai-selfhost → `ai/self-host-vs-api` 自托管推理还是调 API

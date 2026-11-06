@@ -55,6 +55,7 @@ import { cards as capacityEstimation } from './cards/capacity-estimation'
 import { cards as cost } from './cards/cost'
 import { cards as interactionPatterns } from './cards/interaction-patterns'
 import { cards as modelTieringBatch } from './cards/model-tiering-batch'
+import { cards as selfHostVsApi } from './cards/self-host-vs-api'
 
 export const cards: Card[] = [
   ...networkTcpHttpTls,
@@ -105,6 +106,7 @@ export const cards: Card[] = [
   ...cost,
   ...interactionPatterns,
   ...modelTieringBatch,
+  ...selfHostVsApi,
 ]
 
 /** 删掉的卡：data 分支和各设备的本地缓存里可能还留着它们的复习记录、批注，页面不显示，测试放行 */
